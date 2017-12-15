@@ -2,6 +2,6 @@ package es.eriktorr.katas
 
 interface TimeLinePrinter {
 
-    fun println(line: String): String
+    fun print(message: String): String
 
 }
