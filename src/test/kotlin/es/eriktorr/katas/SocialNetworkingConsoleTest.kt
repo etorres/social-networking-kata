@@ -37,4 +37,22 @@ class SocialNetworkingConsoleTest {
         }
     }
 
+    @Test
+    fun `a user can subscribe to other users time-lines, and view an aggregated list of all subscriptions`() {
+        socialNetworkingConsole.submit("Charlie -> I'm in New York today! Anyone wants to have a coffee?")
+        socialNetworkingConsole.submit("Charlie wall")
+        socialNetworkingConsole.submit("Charlie follows Bob")
+        socialNetworkingConsole.submit("Charlie wall")
+
+        inOrder(timeLinePrinter) {
+            verify(timeLinePrinter).print("Charlie follows Alice")
+            verify(timeLinePrinter).print("Charlie - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
+            verify(timeLinePrinter).print("Alice - I love the weather today (5 minutes ago)")
+            verify(timeLinePrinter).print("Charlie - I'm in New York today! Anyone wants to have a coffee? (15 seconds ago)")
+            verify(timeLinePrinter).print("Bob - Good game though. (1 minute ago)")
+            verify(timeLinePrinter).print("Bob - Damn! We lost! (2 minutes ago)")
+            verify(timeLinePrinter).print("Alice - I love the weather today (5 minutes ago)")
+        }
+    }
+
 }
