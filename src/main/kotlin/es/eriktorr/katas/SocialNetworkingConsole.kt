@@ -3,6 +3,7 @@ package es.eriktorr.katas
 import es.eriktorr.katas.core.Clock
 import es.eriktorr.katas.core.Command.*
 import es.eriktorr.katas.core.CommandBuilder
+import es.eriktorr.katas.core.TimeLineEntry
 import es.eriktorr.katas.core.TimeLinePrinter
 import es.eriktorr.katas.data.TimeLineRepository
 
@@ -15,7 +16,7 @@ class SocialNetworkingConsole(private val clock: Clock,
         val command = commandBuilder.from(request)
         when (command) {
             is PostingCommand -> postToTimeLine(userName = command.userName, message = command.message)
-            is ReadingCommand -> viewTimeLine(userName = command.userName)
+            is ReadingCommand -> printTimeLineOf(userName = command.userName)
         }
     }
 
@@ -23,8 +24,12 @@ class SocialNetworkingConsole(private val clock: Clock,
         timeLineRepository.save(clock.now(), userName = userName, message = message)
     }
 
-    private fun viewTimeLine(userName: String) {
-        timeLineRepository.filterBy(userName).forEach { timeLinePrinter.print(it.message) }
+    private fun printTimeLineOf(userName: String) {
+        timeLineRepository.filterBy(userName).forEach { printTimeLineEntry(it) }
+    }
+
+    private fun printTimeLineEntry(it: TimeLineEntry) {
+        timeLinePrinter.print(it.message)
     }
 
 }
