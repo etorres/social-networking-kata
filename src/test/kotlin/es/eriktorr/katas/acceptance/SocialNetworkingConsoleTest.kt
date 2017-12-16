@@ -15,6 +15,13 @@ class SocialNetworkingConsoleTest {
         private val ALICE = "Alice"
         private val BOB = "Bob"
         private val CHARLIE = "Charlie"
+
+        private val YEAR = 2017
+        private val MONTH = 12
+        private val DAY = 15
+        private val HOUR = 8
+        private val MINUTE = 30
+        private val SECOND = 30
     }
 
     private val clock = mock<Clock>()
@@ -29,13 +36,16 @@ class SocialNetworkingConsoleTest {
      */
 
     @Test
-    fun `a user can publish messages to a personal time-line`() {
+    fun `a user can publish messages to, view and subscribe to a personal time-line`() {
         given(clock.now())
-                .willReturn(LocalDateTime.of(2017, 12, 15, 8, 30, 10))
-                .willReturn(LocalDateTime.of(2017, 12, 15, 8, 31, 10))
-                .willReturn(LocalDateTime.of(2017, 12, 15, 8, 32, 10))
-                .willReturn(LocalDateTime.of(2017, 12, 15, 8, 35, 10))
-                .willReturn(LocalDateTime.of(2017, 12, 15, 8, 33, 10))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE-5, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE-2, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE-1, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-2))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
 
         socialNetworkingConsole.submit("${ALICE} -> I love the weather today")
         socialNetworkingConsole.submit("${BOB} -> Damn! We lost!")
