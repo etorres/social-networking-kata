@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.mock
 import es.eriktorr.katas.Clock
+import es.eriktorr.katas.CommandParser
 import es.eriktorr.katas.SocialNetworkingConsole
 import es.eriktorr.katas.TimeLinePrinter
 import org.junit.jupiter.api.Test
@@ -21,14 +22,14 @@ class SocialNetworkingConsoleTest {
         private val DAY = 15
         private val HOUR = 8
         private val MINUTE = 30
-        private val SECOND = 30
+        private val SECOND = 45
     }
 
     private val clock = mock<Clock>()
 
     private val timeLinePrinter = mock<TimeLinePrinter>()
 
-    private val socialNetworkingConsole = SocialNetworkingConsole(clock, timeLinePrinter)
+    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandParser(), timeLinePrinter)
 
     /*
     a user can publish messages to a personal time-line

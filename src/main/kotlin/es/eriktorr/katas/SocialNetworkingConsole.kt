@@ -1,9 +1,9 @@
 package es.eriktorr.katas
 
-class SocialNetworkingConsole(clock: Clock, timeLinePrinter: TimeLinePrinter) {
+class SocialNetworkingConsole(val clock: Clock, val commandParser: CommandParser, val timeLinePrinter: TimeLinePrinter) {
 
-    fun submit(command: String) {
-        TODO("not implemented")
+    fun submit(request: String) {
+        val command = commandParser.from(request)
     }
 
 }
