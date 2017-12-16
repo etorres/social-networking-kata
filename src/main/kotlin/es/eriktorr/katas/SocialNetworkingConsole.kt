@@ -15,11 +15,16 @@ class SocialNetworkingConsole(private val clock: Clock,
         val command = commandBuilder.from(request)
         when (command) {
             is PostingCommand -> postToTimeLine(userName = command.userName, message = command.message)
+            is ReadingCommand -> viewTimeLine(userName = command.userName)
         }
     }
 
     private fun postToTimeLine(userName: String, message: String) {
         timeLineRepository.save(clock.now(), userName = userName, message = message)
+    }
+
+    private fun viewTimeLine(userName: String) {
+        timeLineRepository.filterBy(userName).forEach { timeLinePrinter.print(it.message) }
     }
 
 }
