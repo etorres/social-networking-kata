@@ -3,10 +3,10 @@ package es.eriktorr.katas.acceptance
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.mock
-import es.eriktorr.katas.Clock
-import es.eriktorr.katas.CommandBuilder
+import es.eriktorr.katas.core.Clock
+import es.eriktorr.katas.core.CommandBuilder
 import es.eriktorr.katas.SocialNetworkingConsole
-import es.eriktorr.katas.TimeLinePrinter
+import es.eriktorr.katas.core.TimeLinePrinter
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
@@ -69,7 +69,7 @@ class SocialNetworkingConsoleTest {
             verify(timeLinePrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
             verify(timeLinePrinter).print("${ALICE} - I love the weather today (5 minutes ago)")
 
-            verify(timeLinePrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (15 seconds ago)")
+            verify(timeLinePrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
             verify(timeLinePrinter).print("${BOB} - Good game though. (1 minute ago)")
             verify(timeLinePrinter).print("${BOB} - Damn! We lost! (2 minutes ago)")
             verify(timeLinePrinter).print("${ALICE} - I love the weather today (5 minutes ago)")

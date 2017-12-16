@@ -1,7 +1,6 @@
-package es.eriktorr.katas.acceptance
+package es.eriktorr.katas.core
 
-import es.eriktorr.katas.Command.*
-import es.eriktorr.katas.CommandBuilder
+import es.eriktorr.katas.core.Command.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -18,9 +17,9 @@ class CommandBuilderTest {
 
     @TestFactory
     fun `create command from request`() = listOf(
-            "$CHARLIE -> $MESSAGE" to PostingCommand(CHARLIE, MESSAGE),
-            "$CHARLIE follows $ALICE" to FollowingCommand(CHARLIE, ALICE),
-            "$CHARLIE wall" to WallCommand(CHARLIE),
+            "${CHARLIE} -> ${MESSAGE}" to PostingCommand(CHARLIE, MESSAGE),
+            "${CHARLIE} follows ${ALICE}" to FollowingCommand(CHARLIE, ALICE),
+            "${CHARLIE} wall" to WallCommand(CHARLIE),
             ALICE to ReadingCommand(ALICE))
             .map { (request, command) ->
                 DynamicTest.dynamicTest("from($request) => $command") {

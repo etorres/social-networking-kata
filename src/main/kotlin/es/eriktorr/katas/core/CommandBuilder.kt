@@ -1,6 +1,6 @@
-package es.eriktorr.katas
+package es.eriktorr.katas.core
 
-import es.eriktorr.katas.Command.*
+import es.eriktorr.katas.core.Command.*
 
 class CommandBuilder {
 

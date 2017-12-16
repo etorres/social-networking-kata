@@ -1,4 +1,4 @@
-package es.eriktorr.katas
+package es.eriktorr.katas.core
 
 interface TimeLinePrinter {
 
