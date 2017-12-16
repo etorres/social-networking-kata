@@ -7,6 +7,7 @@ import es.eriktorr.katas.core.Clock
 import es.eriktorr.katas.core.CommandBuilder
 import es.eriktorr.katas.SocialNetworkingConsole
 import es.eriktorr.katas.core.TimeLinePrinter
+import es.eriktorr.katas.data.TimeLineRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
@@ -29,9 +30,9 @@ class SocialNetworkingConsoleTest {
 
     private val timeLinePrinter = mock<TimeLinePrinter>()
 
-    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), timeLinePrinter)
+    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), TimeLineRepository(), timeLinePrinter)
 
-    /*
+    /* TODO
     a user can publish messages to a personal time-line
     a user can subscribe to other users time-lines, and view an aggregated list of all subscriptions
      */

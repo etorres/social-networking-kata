@@ -1,7 +1,9 @@
 package es.eriktorr.katas.core
 
+import java.time.LocalDateTime
+
 interface TimeLineRecorder {
 
-    fun save(userName: String, message: String)
+    fun save(timestamp: LocalDateTime, userName: String, message: String)
 
 }
