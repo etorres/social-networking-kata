@@ -48,7 +48,7 @@ class TimeLineRepositoryTest {
     }
 
     @Test
-    fun `filter time-line by user`() {
+    fun `filter time-line by user, printing posts in reverse chronological order`() {
         timeLineRepository.save(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1)
         timeLineRepository.save(TIMESTAMP_2, userName = BOB, message = MESSAGE_2)
         timeLineRepository.save(TIMESTAMP_3, userName = BOB, message = MESSAGE_3)
@@ -57,9 +57,9 @@ class TimeLineRepositoryTest {
         timeLineRepository.useEntries(users = *arrayOf(BOB, CHARLIE), block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
 
         inOrder(timeLinePrinter) {
-            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_2, userName = BOB, message = MESSAGE_2).toString())
-            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_3, userName = BOB, message = MESSAGE_3).toString())
             verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_4, userName = CHARLIE, message = MESSAGE_4).toString())
+            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_3, userName = BOB, message = MESSAGE_3).toString())
+            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_2, userName = BOB, message = MESSAGE_2).toString())
         }
         verifyNoMoreInteractions(timeLinePrinter)
     }

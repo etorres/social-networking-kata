@@ -13,7 +13,7 @@ class TimeLineRepository: TimeLineRecorder, TimeLineReader {
     }
 
     override fun <T> useEntries(vararg users: String, block: (List<TimeLineEntry>) -> T) {
-        block(timeLine.filter { users.contains(it.userName) })
+        block(timeLine.filter { users.contains(it.userName) }.sortedByDescending { it.timestamp })
     }
 
 }

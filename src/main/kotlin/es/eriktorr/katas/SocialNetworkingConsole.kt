@@ -7,10 +7,13 @@ import es.eriktorr.katas.command.CommandBuilder
 import es.eriktorr.katas.timeline.TimeLineEntry
 import es.eriktorr.katas.timeline.TimeLinePrinter
 import es.eriktorr.katas.data.TimeLineRepository
+import es.eriktorr.katas.time.ElapsedTimeCalculator
+import java.time.LocalDateTime
 
 class SocialNetworkingConsole(private val clock: Clock,
                               private val commandBuilder: CommandBuilder,
                               private val timeLineRepository: TimeLineRepository,
+                              private val elapsedTimeCalculator: ElapsedTimeCalculator,
                               private val timeLinePrinter: TimeLinePrinter) {
 
     fun submit(request: String) {
@@ -26,11 +29,14 @@ class SocialNetworkingConsole(private val clock: Clock,
     }
 
     private fun printTimeLineOf(userName: String) {
-        timeLineRepository.useEntries(userName, block = { entries -> entries.forEach { printTimeLineEntry(it) } })
+        val now = clock.now()
+        timeLineRepository.useEntries(userName, block = { entries -> entries.forEach { printTimeLineEntry(it, now) } })
     }
 
-    private fun printTimeLineEntry(it: TimeLineEntry) {
-        timeLinePrinter.print(it.message)
+    private fun printTimeLineEntry(it: TimeLineEntry, now: LocalDateTime) {
+        timeLinePrinter.print("${it.message} (${elapsedTime(it.timestamp, now)})")
     }
+
+    private fun elapsedTime(postingTime: LocalDateTime, now: LocalDateTime) = elapsedTimeCalculator.timeElapsedBetween(postingTime, now)
 
 }
