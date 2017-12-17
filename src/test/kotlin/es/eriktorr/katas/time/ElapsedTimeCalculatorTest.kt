@@ -32,7 +32,8 @@ class ElapsedTimeCalculatorTest {
             LocalDateTime.of(YEAR, MONTH, DAY-1, HOUR, MINUTE, SECOND) to "1 day ago",
             LocalDateTime.of(YEAR, MONTH, DAY-6, HOUR, MINUTE, SECOND) to "6 days ago",
             LocalDateTime.of(YEAR, MONTH, DAY-7, HOUR, MINUTE, SECOND) to "1 week ago",
-            LocalDateTime.of(YEAR, MONTH, DAY-7, HOUR, MINUTE, SECOND-1) to "on December 8th")
+            LocalDateTime.of(YEAR, MONTH, DAY-7, HOUR-23, MINUTE, SECOND) to "1 week ago",
+            LocalDateTime.of(YEAR, MONTH, DAY-8, HOUR, MINUTE, SECOND) to "on Dec 23, 2017 23:59")
             .map { (eventTime, elapsedTime) ->
                 DynamicTest.dynamicTest("timeElapsed($eventTime, now) => $elapsedTime") {
                     assertThat(elapsedTimeCalculator.timeElapsedBetween(oldTime = eventTime, newTime = NOW)).isEqualTo(elapsedTime)
