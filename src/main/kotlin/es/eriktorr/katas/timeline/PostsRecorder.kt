@@ -2,7 +2,7 @@ package es.eriktorr.katas.timeline
 
 import java.time.LocalDateTime
 
-interface TimeLineRecorder {
+interface PostsRecorder {
 
     fun save(timestamp: LocalDateTime, userName: String, message: String)
 

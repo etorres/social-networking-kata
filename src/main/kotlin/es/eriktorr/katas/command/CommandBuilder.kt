@@ -13,29 +13,29 @@ class CommandBuilder {
 
     fun from(request: String): Command {
         return when {
-            request.contains(" -> ") -> posting(request)
-            request.endsWith(" wall") -> wall(request)
-            request.contains(" follows ") -> following(request)
-            READING_REGEX.matches(request) -> reading(request)
+            request.contains(" -> ") -> postMessageCommandOf(request)
+            request.endsWith(" wall") -> viewAllMessagesFromSubscriptionsCommandOf(request)
+            request.contains(" follows ") -> followUserCommandOf(request)
+            READING_REGEX.matches(request) -> viewTimeLineCommandOf(request)
             else -> throw IllegalArgumentException("unsupported request")
         }
     }
 
-    private fun posting(request: String): PostingCommand {
+    private fun postMessageCommandOf(request: String): PostMessageCommand {
         val groups = POSTING_REGEX.matchEntire(request)!!.groups
-        return PostingCommand(groups[1]!!.value, groups[3]!!.value)
+        return PostMessageCommand(groups[1]!!.value, groups[3]!!.value)
     }
 
-    private fun following(request: String): FollowingCommand {
+    private fun followUserCommandOf(request: String): FollowUserCommand {
         val groups = FOLLOWING_REGEX.matchEntire(request)!!.groups
-        return FollowingCommand(groups[1]!!.value, groups[3]!!.value)
+        return FollowUserCommand(groups[1]!!.value, groups[3]!!.value)
     }
 
-    private fun wall(request: String): WallCommand {
+    private fun viewAllMessagesFromSubscriptionsCommandOf(request: String): ViewAllMessagesFromSubscriptionsCommand {
         val groups = WALL_REGEX.matchEntire(request)!!.groups
-        return WallCommand(groups[1]!!.value)
+        return ViewAllMessagesFromSubscriptionsCommand(groups[1]!!.value)
     }
 
-    private fun reading(request: String): ReadingCommand = ReadingCommand(request)
+    private fun viewTimeLineCommandOf(request: String): ViewTimeLineCommand = ViewTimeLineCommand(request)
 
 }

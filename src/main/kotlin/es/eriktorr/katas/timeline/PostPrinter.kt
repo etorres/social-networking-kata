@@ -1,6 +1,6 @@
 package es.eriktorr.katas.timeline
 
-interface TimeLinePrinter {
+interface PostPrinter {
 
     fun print(entry: String): String
 

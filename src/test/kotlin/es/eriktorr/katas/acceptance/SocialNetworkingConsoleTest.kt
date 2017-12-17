@@ -7,8 +7,8 @@ import es.eriktorr.katas.time.Clock
 import es.eriktorr.katas.command.CommandBuilder
 import es.eriktorr.katas.SocialNetworkingConsole
 import es.eriktorr.katas.data.SubscriptionsRepository
-import es.eriktorr.katas.timeline.TimeLinePrinter
-import es.eriktorr.katas.data.TimeLineRepository
+import es.eriktorr.katas.timeline.PostPrinter
+import es.eriktorr.katas.data.PostsRepository
 import es.eriktorr.katas.time.ElapsedTimeCalculator
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
@@ -30,10 +30,10 @@ class SocialNetworkingConsoleTest {
 
     private val clock = mock<Clock>()
 
-    private val timeLinePrinter = mock<TimeLinePrinter>()
+    private val postPrinter = mock<PostPrinter>()
 
-    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), TimeLineRepository(),
-            ElapsedTimeCalculator(), timeLinePrinter, SubscriptionsRepository())
+    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), PostsRepository(),
+            SubscriptionsRepository(), ElapsedTimeCalculator(), postPrinter)
 
     @Test
     fun `a user can publish messages to, view messages from and subscribe to other users personal time-line`() {
@@ -60,18 +60,18 @@ class SocialNetworkingConsoleTest {
         socialNetworkingConsole.submit("${CHARLIE} follows ${BOB}")
         socialNetworkingConsole.submit("${CHARLIE} wall")
 
-        inOrder(timeLinePrinter) {
-            verify(timeLinePrinter).print("I love the weather today (5 minutes ago)")
-            verify(timeLinePrinter).print("Good game though. (1 minute ago)")
-            verify(timeLinePrinter).print("Damn! We lost! (2 minutes ago)")
+        inOrder(postPrinter) {
+            verify(postPrinter).print("I love the weather today (5 minutes ago)")
+            verify(postPrinter).print("Good game though. (1 minute ago)")
+            verify(postPrinter).print("Damn! We lost! (2 minutes ago)")
 
-            verify(timeLinePrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
-            verify(timeLinePrinter).print("${ALICE} - I love the weather today (5 minutes ago)")
+            verify(postPrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
+            verify(postPrinter).print("${ALICE} - I love the weather today (5 minutes ago)")
 
-            verify(timeLinePrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
-            verify(timeLinePrinter).print("${BOB} - Good game though. (1 minute ago)")
-            verify(timeLinePrinter).print("${BOB} - Damn! We lost! (2 minutes ago)")
-            verify(timeLinePrinter).print("${ALICE} - I love the weather today (5 minutes ago)")
+            verify(postPrinter).print("${CHARLIE} - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)")
+            verify(postPrinter).print("${BOB} - Good game though. (1 minute ago)")
+            verify(postPrinter).print("${BOB} - Damn! We lost! (2 minutes ago)")
+            verify(postPrinter).print("${ALICE} - I love the weather today (5 minutes ago)")
         }
     }
 
