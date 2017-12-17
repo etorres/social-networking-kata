@@ -6,6 +6,7 @@ import com.nhaarman.mockito_kotlin.mock
 import es.eriktorr.katas.time.Clock
 import es.eriktorr.katas.command.CommandBuilder
 import es.eriktorr.katas.SocialNetworkingConsole
+import es.eriktorr.katas.data.SubscriptionsRepository
 import es.eriktorr.katas.timeline.TimeLinePrinter
 import es.eriktorr.katas.data.TimeLineRepository
 import es.eriktorr.katas.time.ElapsedTimeCalculator
@@ -31,7 +32,8 @@ class SocialNetworkingConsoleTest {
 
     private val timeLinePrinter = mock<TimeLinePrinter>()
 
-    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), TimeLineRepository(), ElapsedTimeCalculator(), timeLinePrinter)
+    private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), TimeLineRepository(),
+            ElapsedTimeCalculator(), timeLinePrinter, SubscriptionsRepository())
 
     @Test
     fun `a user can publish messages to, view messages from and subscribe to other users personal time-line`() {
