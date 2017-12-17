@@ -23,6 +23,7 @@ class SocialNetworkingConsole(private val clock: Clock,
             is PostingCommand -> postToTimeLine(userName = command.userName, message = command.message)
             is ReadingCommand -> printTimeLineOf(command.userName)
             is FollowingCommand -> followUser(userName = command.userName, followedUserName = command.followedUserName)
+            is WallCommand -> printAggregatedSubscriptions(command.userName)
         }
     }
 
@@ -36,11 +37,23 @@ class SocialNetworkingConsole(private val clock: Clock,
     }
 
     private fun printTimeLineEntry(it: TimeLineEntry, now: LocalDateTime) {
+
+        // TODO
+        println("${it.message} (${elapsedTime(it.timestamp, now)})")
+        // TODO
+
         timeLinePrinter.print("${it.message} (${elapsedTime(it.timestamp, now)})")
     }
 
     private fun followUser(userName: String, followedUserName: String) {
         subscriptionsRepository.subscribe(userName = userName, followedUserName = followedUserName)
+    }
+
+    private fun printAggregatedSubscriptions(userName: String) {
+        val now = clock.now()
+        val subscriptions = subscriptionsRepository.subscriptionsOf(userName)
+        val wall = listOf(userName, *subscriptions.toTypedArray())
+        timeLineRepository.useEntries(users = *wall.toTypedArray(), block = { entries -> entries.forEach { printTimeLineEntry(it, now) } })
     }
 
     private fun elapsedTime(postingTime: LocalDateTime, now: LocalDateTime) = elapsedTimeCalculator.timeElapsedBetween(postingTime, now)
