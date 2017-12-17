@@ -26,7 +26,7 @@ class SocialNetworkingConsole(private val clock: Clock,
     }
 
     private fun printTimeLineOf(userName: String) {
-        timeLineRepository.useEntries(users = *arrayOf(userName), block = { entries -> entries.forEach { printTimeLineEntry(it) } })
+        timeLineRepository.useEntries(userName, block = { entries -> entries.forEach { printTimeLineEntry(it) } })
     }
 
     private fun printTimeLineEntry(it: TimeLineEntry) {

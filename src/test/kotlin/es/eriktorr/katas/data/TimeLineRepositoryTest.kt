@@ -3,6 +3,7 @@ package es.eriktorr.katas.data
 import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import es.eriktorr.katas.core.TimeLineEntry
 import es.eriktorr.katas.core.TimeLinePrinter
 import org.junit.jupiter.api.Test
@@ -13,10 +14,12 @@ class TimeLineRepositoryTest {
     companion object {
         private val ALICE = "Alice"
         private val BOB = "Bob"
+        private val CHARLIE = "Charlie"
 
         private val MESSAGE_1 = "I love the weather today"
         private val MESSAGE_2 = "Damn! We lost!"
         private val MESSAGE_3 = "Good game though."
+        private val MESSAGE_4 = "I'm in New York today! Anyone wants to have a coffee?"
 
         private val YEAR = 2017
         private val MONTH = 12
@@ -25,9 +28,10 @@ class TimeLineRepositoryTest {
         private val MINUTE = 30
         private val SECOND = 45
 
-        private val TIMESTAMP_1 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-2)
-        private val TIMESTAMP_2 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-1)
-        private val TIMESTAMP_3 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
+        private val TIMESTAMP_1 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-3)
+        private val TIMESTAMP_2 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-2)
+        private val TIMESTAMP_3 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-1)
+        private val TIMESTAMP_4 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
     }
 
     private val timeLinePrinter = mock<TimeLinePrinter>()
@@ -38,7 +42,7 @@ class TimeLineRepositoryTest {
     fun `save user post to time-line`() {
         timeLineRepository.save(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1)
 
-        timeLineRepository.useEntries(users = *arrayOf(ALICE), block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
+        timeLineRepository.useEntries(ALICE, block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
 
         verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1).toString())
     }
@@ -48,13 +52,16 @@ class TimeLineRepositoryTest {
         timeLineRepository.save(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1)
         timeLineRepository.save(TIMESTAMP_2, userName = BOB, message = MESSAGE_2)
         timeLineRepository.save(TIMESTAMP_3, userName = BOB, message = MESSAGE_3)
+        timeLineRepository.save(TIMESTAMP_4, userName = CHARLIE, message = MESSAGE_4)
 
-        timeLineRepository.useEntries(users = *arrayOf(BOB), block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
+        timeLineRepository.useEntries(users = *arrayOf(BOB, CHARLIE), block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
 
         inOrder(timeLinePrinter) {
             verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_2, userName = BOB, message = MESSAGE_2).toString())
             verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_3, userName = BOB, message = MESSAGE_3).toString())
+            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_4, userName = CHARLIE, message = MESSAGE_4).toString())
         }
+        verifyNoMoreInteractions(timeLinePrinter)
     }
 
 }
