@@ -33,13 +33,8 @@ class SocialNetworkingConsoleTest {
 
     private val socialNetworkingConsole = SocialNetworkingConsole(clock, CommandBuilder(), TimeLineRepository(), ElapsedTimeCalculator(), timeLinePrinter)
 
-    /* TODO
-    a user can publish messages to a personal time-line
-    a user can subscribe to other users time-lines, and view an aggregated list of all subscriptions
-     */
-
     @Test
-    fun `a user can publish messages to, view and subscribe to a personal time-line`() {
+    fun `a user can publish messages to, view messages from and subscribe to other users personal time-line`() {
         given(clock.now())
                 .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE -5, SECOND))
                 .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE -2, SECOND))

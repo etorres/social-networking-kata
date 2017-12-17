@@ -1,8 +1,7 @@
 package es.eriktorr.katas
 
+import es.eriktorr.katas.command.Command.*
 import es.eriktorr.katas.time.Clock
-import es.eriktorr.katas.command.Command.PostingCommand
-import es.eriktorr.katas.command.Command.ReadingCommand
 import es.eriktorr.katas.command.CommandBuilder
 import es.eriktorr.katas.timeline.TimeLineEntry
 import es.eriktorr.katas.timeline.TimeLinePrinter
@@ -21,6 +20,7 @@ class SocialNetworkingConsole(private val clock: Clock,
         when (command) {
             is PostingCommand -> postToTimeLine(userName = command.userName, message = command.message)
             is ReadingCommand -> printTimeLineOf(command.userName)
+            is FollowingCommand -> followUser(userName = command.userName, followedUser = command.followedUser)
         }
     }
 
@@ -35,6 +35,10 @@ class SocialNetworkingConsole(private val clock: Clock,
 
     private fun printTimeLineEntry(it: TimeLineEntry, now: LocalDateTime) {
         timeLinePrinter.print("${it.message} (${elapsedTime(it.timestamp, now)})")
+    }
+
+    private fun followUser(userName: String, followedUser: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun elapsedTime(postingTime: LocalDateTime, now: LocalDateTime) = elapsedTimeCalculator.timeElapsedBetween(postingTime, now)
