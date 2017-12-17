@@ -1,6 +1,6 @@
-package es.eriktorr.katas.core
+package es.eriktorr.katas.command
 
-import es.eriktorr.katas.core.Command.*
+import es.eriktorr.katas.command.Command.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory

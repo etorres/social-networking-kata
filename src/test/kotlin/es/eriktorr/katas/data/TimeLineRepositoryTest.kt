@@ -4,8 +4,8 @@ import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import es.eriktorr.katas.core.TimeLineEntry
-import es.eriktorr.katas.core.TimeLinePrinter
+import es.eriktorr.katas.timeline.TimeLineEntry
+import es.eriktorr.katas.timeline.TimeLinePrinter
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 

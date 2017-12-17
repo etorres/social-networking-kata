@@ -1,4 +1,4 @@
-package es.eriktorr.katas.core
+package es.eriktorr.katas.command
 
 sealed class Command(private val userName: String) {
 

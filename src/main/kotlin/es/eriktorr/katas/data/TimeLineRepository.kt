@@ -1,8 +1,8 @@
 package es.eriktorr.katas.data
 
-import es.eriktorr.katas.core.TimeLineEntry
-import es.eriktorr.katas.core.TimeLineReader
-import es.eriktorr.katas.core.TimeLineRecorder
+import es.eriktorr.katas.timeline.TimeLineEntry
+import es.eriktorr.katas.timeline.TimeLineReader
+import es.eriktorr.katas.timeline.TimeLineRecorder
 import java.time.LocalDateTime
 
 class TimeLineRepository: TimeLineRecorder, TimeLineReader {

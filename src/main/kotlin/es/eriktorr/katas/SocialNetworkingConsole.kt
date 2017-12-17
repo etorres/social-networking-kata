@@ -1,11 +1,11 @@
 package es.eriktorr.katas
 
-import es.eriktorr.katas.core.Clock
-import es.eriktorr.katas.core.Command.PostingCommand
-import es.eriktorr.katas.core.Command.ReadingCommand
-import es.eriktorr.katas.core.CommandBuilder
-import es.eriktorr.katas.core.TimeLineEntry
-import es.eriktorr.katas.core.TimeLinePrinter
+import es.eriktorr.katas.time.Clock
+import es.eriktorr.katas.command.Command.PostingCommand
+import es.eriktorr.katas.command.Command.ReadingCommand
+import es.eriktorr.katas.command.CommandBuilder
+import es.eriktorr.katas.timeline.TimeLineEntry
+import es.eriktorr.katas.timeline.TimeLinePrinter
 import es.eriktorr.katas.data.TimeLineRepository
 
 class SocialNetworkingConsole(private val clock: Clock,
@@ -17,7 +17,7 @@ class SocialNetworkingConsole(private val clock: Clock,
         val command = commandBuilder.from(request)
         when (command) {
             is PostingCommand -> postToTimeLine(userName = command.userName, message = command.message)
-            is ReadingCommand -> printTimeLineOf(userName = command.userName)
+            is ReadingCommand -> printTimeLineOf(command.userName)
         }
     }
 

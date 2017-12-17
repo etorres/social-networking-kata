@@ -3,10 +3,10 @@ package es.eriktorr.katas.acceptance
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.mock
-import es.eriktorr.katas.core.Clock
-import es.eriktorr.katas.core.CommandBuilder
+import es.eriktorr.katas.time.Clock
+import es.eriktorr.katas.command.CommandBuilder
 import es.eriktorr.katas.SocialNetworkingConsole
-import es.eriktorr.katas.core.TimeLinePrinter
+import es.eriktorr.katas.timeline.TimeLinePrinter
 import es.eriktorr.katas.data.TimeLineRepository
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime

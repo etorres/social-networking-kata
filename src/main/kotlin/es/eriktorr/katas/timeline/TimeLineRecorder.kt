@@ -1,4 +1,4 @@
-package es.eriktorr.katas.core
+package es.eriktorr.katas.timeline
 
 import java.time.LocalDateTime
 
