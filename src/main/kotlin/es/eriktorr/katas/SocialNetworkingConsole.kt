@@ -33,16 +33,7 @@ class SocialNetworkingConsole(private val clock: Clock,
 
     private fun printTimeLineOf(userName: String) {
         val now = clock.now()
-        timeLineRepository.useEntries(userName, block = { entries -> entries.forEach { printTimeLineEntry(it, now) } })
-    }
-
-    private fun printTimeLineEntry(it: TimeLineEntry, now: LocalDateTime) {
-
-        // TODO
-        println("${it.message} (${elapsedTime(it.timestamp, now)})")
-        // TODO
-
-        timeLinePrinter.print("${it.message} (${elapsedTime(it.timestamp, now)})")
+        timeLineRepository.useEntries(userName, block = { entries -> entries.forEach { printMessage(it, now) } })
     }
 
     private fun followUser(userName: String, followedUserName: String) {
@@ -53,7 +44,15 @@ class SocialNetworkingConsole(private val clock: Clock,
         val now = clock.now()
         val subscriptions = subscriptionsRepository.subscriptionsOf(userName)
         val wall = listOf(userName, *subscriptions.toTypedArray())
-        timeLineRepository.useEntries(users = *wall.toTypedArray(), block = { entries -> entries.forEach { printTimeLineEntry(it, now) } })
+        timeLineRepository.useEntries(users = *wall.toTypedArray(), block = { entries -> entries.forEach { printMessageWithUsername(it, now) } })
+    }
+
+    private fun printMessage(it: TimeLineEntry, now: LocalDateTime) {
+        timeLinePrinter.print("${it.message} (${elapsedTime(it.timestamp, now)})")
+    }
+
+    private fun printMessageWithUsername(it: TimeLineEntry, now: LocalDateTime) {
+        timeLinePrinter.print("${it.userName} - ${it.message} (${elapsedTime(it.timestamp, now)})")
     }
 
     private fun elapsedTime(postingTime: LocalDateTime, now: LocalDateTime) = elapsedTimeCalculator.timeElapsedBetween(postingTime, now)
