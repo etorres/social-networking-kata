@@ -40,12 +40,12 @@ class SocialNetworkingConsoleTest {
     @Test
     fun `a user can publish messages to, view and subscribe to a personal time-line`() {
         given(clock.now())
-                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE-5, SECOND))
-                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE-2, SECOND))
-                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE-1, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE -5, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE -2, SECOND))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE -1, SECOND))
                 .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
                 .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
-                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND-2))
+                .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND -2))
                 .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
                 .willReturn(LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND))
 
