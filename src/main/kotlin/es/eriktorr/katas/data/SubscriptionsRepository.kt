@@ -5,12 +5,12 @@ import es.eriktorr.katas.subscriptions.SubscriptionsRecorder
 
 class SubscriptionsRepository: SubscriptionsRecorder, SubscriptionsFinder {
 
+    private val subscriptions = mutableMapOf<String, MutableList<String>>()
+
     override fun subscribe(userName: String, followedUserName: String) {
-        TODO("not implemented")
+        subscriptions.getOrPut(userName) { mutableListOf() }.add(followedUserName)
     }
 
-    override fun subscriptionsOf(userName: String): List<String> {
-        TODO("not implemented")
-    }
+    override fun subscriptionsOf(userName: String): List<String> = subscriptions.getOrPut(userName) { mutableListOf() }.toList()
 
 }
