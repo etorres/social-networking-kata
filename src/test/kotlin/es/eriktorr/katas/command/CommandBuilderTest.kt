@@ -20,7 +20,7 @@ class CommandBuilderTest {
             "$CHARLIE -> $MESSAGE" to PostMessageCommand(CHARLIE, MESSAGE),
             "$CHARLIE follows $ALICE" to FollowUserCommand(CHARLIE, ALICE),
             "$CHARLIE wall" to ViewAllPostsFromSubscriptionsCommand(CHARLIE),
-            ALICE to ViewPostsCommand(ALICE))
+            ALICE to ViewUserPostsCommand(ALICE))
             .map { (request, command) ->
                 DynamicTest.dynamicTest("from($request) => $command") {
                     assertThat(commandBuilder.from(request)).isEqualTo(command)

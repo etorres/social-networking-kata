@@ -21,7 +21,7 @@ class SocialNetworkingConsole(private val clock: Clock,
         val command = commandBuilder.from(request)
         when (command) {
             is PostMessageCommand -> saveNewPost(userName = command.userName, message = command.message)
-            is ViewPostsCommand -> printPostsOf(command.userName)
+            is ViewUserPostsCommand -> printPostsOf(command.userName)
             is FollowUserCommand -> followUser(userName = command.userName, followedUserName = command.followedUserName)
             is ViewAllPostsFromSubscriptionsCommand -> printAggregatedPostsFromSubscriptions(command.userName)
         }

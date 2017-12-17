@@ -36,6 +36,6 @@ class CommandBuilder {
         return ViewAllPostsFromSubscriptionsCommand(groups[1]!!.value)
     }
 
-    private fun viewTimeLineCommandOf(request: String): ViewPostsCommand = ViewPostsCommand(request)
+    private fun viewTimeLineCommandOf(request: String): ViewUserPostsCommand = ViewUserPostsCommand(request)
 
 }
