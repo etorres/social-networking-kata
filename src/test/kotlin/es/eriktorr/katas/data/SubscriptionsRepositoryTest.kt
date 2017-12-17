@@ -15,8 +15,8 @@ class SubscriptionsRepositoryTest {
 
     @Test
     fun `a user can subscribe to other's users time-lines`() {
-        subscriptionsRepository.subscribe(userName = CHARLIE, followedUserName = ALICE)
-        subscriptionsRepository.subscribe(userName = CHARLIE, followedUserName = BOB)
+        subscriptionsRepository.subscribe(userName = CHARLIE, subscriptionUserName = ALICE)
+        subscriptionsRepository.subscribe(userName = CHARLIE, subscriptionUserName = BOB)
 
         assertThat(subscriptionsRepository.subscriptionsOf(CHARLIE))
                 .hasSize(2)

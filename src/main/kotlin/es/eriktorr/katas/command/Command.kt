@@ -6,7 +6,7 @@ sealed class Command(open val userName: String) {
 
     data class ViewUserPostsCommand(override val userName: String): Command(userName)
 
-    data class FollowUserCommand(override val userName: String, val followedUserName: String): Command(userName)
+    data class FollowUserCommand(override val userName: String, val subscriptionUserName: String): Command(userName)
 
     data class ViewAllPostsFromSubscriptionsCommand(override val userName: String): Command(userName)
 

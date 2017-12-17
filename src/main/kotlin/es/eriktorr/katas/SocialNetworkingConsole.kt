@@ -22,7 +22,7 @@ class SocialNetworkingConsole(private val clock: Clock,
         when (command) {
             is PostMessageCommand -> saveNewPost(userName = command.userName, message = command.message)
             is ViewUserPostsCommand -> printPostsOf(command.userName)
-            is FollowUserCommand -> followUser(userName = command.userName, followedUserName = command.followedUserName)
+            is FollowUserCommand -> followUser(userName = command.userName, subscriptionUserName = command.subscriptionUserName)
             is ViewAllPostsFromSubscriptionsCommand -> printAggregatedPostsFromSubscriptions(command.userName)
         }
     }
@@ -36,8 +36,8 @@ class SocialNetworkingConsole(private val clock: Clock,
         postsRepository.usePosts(userName, block = { entries -> entries.forEach { printMessage(it, now) } })
     }
 
-    private fun followUser(userName: String, followedUserName: String) {
-        subscriptionsRepository.subscribe(userName = userName, followedUserName = followedUserName)
+    private fun followUser(userName: String, subscriptionUserName: String) {
+        subscriptionsRepository.subscribe(userName = userName, subscriptionUserName = subscriptionUserName)
     }
 
     private fun printAggregatedPostsFromSubscriptions(userName: String) {
