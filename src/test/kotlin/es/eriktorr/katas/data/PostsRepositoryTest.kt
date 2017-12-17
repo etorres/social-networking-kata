@@ -40,7 +40,7 @@ class PostsRepositoryTest {
 
     @Test
     fun `save user post to time-line`() {
-        postsRepository.save(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1)
+        postsRepository.save(Post(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1))
 
         postsRepository.usePosts(ALICE, block = { entries -> entries.forEach { postPrinter.print(it.toString()) } })
 
@@ -49,10 +49,10 @@ class PostsRepositoryTest {
 
     @Test
     fun `filter time-line by user, printing posts in reverse chronological order`() {
-        postsRepository.save(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1)
-        postsRepository.save(TIMESTAMP_2, userName = BOB, message = MESSAGE_2)
-        postsRepository.save(TIMESTAMP_3, userName = BOB, message = MESSAGE_3)
-        postsRepository.save(TIMESTAMP_4, userName = CHARLIE, message = MESSAGE_4)
+        postsRepository.save(Post(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1))
+        postsRepository.save(Post(TIMESTAMP_2, userName = BOB, message = MESSAGE_2))
+        postsRepository.save(Post(TIMESTAMP_3, userName = BOB, message = MESSAGE_3))
+        postsRepository.save(Post(TIMESTAMP_4, userName = CHARLIE, message = MESSAGE_4))
 
         postsRepository.usePosts(users = *arrayOf(BOB, CHARLIE), block = { entries -> entries.forEach { postPrinter.print(it.toString()) } })
 

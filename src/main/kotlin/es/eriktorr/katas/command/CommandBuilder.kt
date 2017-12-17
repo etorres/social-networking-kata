@@ -31,11 +31,11 @@ class CommandBuilder {
         return FollowUserCommand(groups[1]!!.value, groups[3]!!.value)
     }
 
-    private fun viewAllMessagesFromSubscriptionsCommandOf(request: String): ViewAllMessagesFromSubscriptionsCommand {
+    private fun viewAllMessagesFromSubscriptionsCommandOf(request: String): ViewAllPostsFromSubscriptionsCommand {
         val groups = WALL_REGEX.matchEntire(request)!!.groups
-        return ViewAllMessagesFromSubscriptionsCommand(groups[1]!!.value)
+        return ViewAllPostsFromSubscriptionsCommand(groups[1]!!.value)
     }
 
-    private fun viewTimeLineCommandOf(request: String): ViewTimeLineCommand = ViewTimeLineCommand(request)
+    private fun viewTimeLineCommandOf(request: String): ViewPostsCommand = ViewPostsCommand(request)
 
 }

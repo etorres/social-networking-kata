@@ -20,18 +20,18 @@ class SocialNetworkingConsole(private val clock: Clock,
     fun submit(request: String) {
         val command = commandBuilder.from(request)
         when (command) {
-            is PostMessageCommand -> postToTimeLine(userName = command.userName, message = command.message)
-            is ViewTimeLineCommand -> printTimeLineOf(command.userName)
+            is PostMessageCommand -> saveNewPost(userName = command.userName, message = command.message)
+            is ViewPostsCommand -> printPostsOf(command.userName)
             is FollowUserCommand -> followUser(userName = command.userName, followedUserName = command.followedUserName)
-            is ViewAllMessagesFromSubscriptionsCommand -> printAggregatedSubscriptions(command.userName)
+            is ViewAllPostsFromSubscriptionsCommand -> printAggregatedPostsFromSubscriptions(command.userName)
         }
     }
 
-    private fun postToTimeLine(userName: String, message: String) {
-        postsRepository.save(clock.now(), userName = userName, message = message)
+    private fun saveNewPost(userName: String, message: String) {
+        postsRepository.save(Post(clock.now(), userName = userName, message = message))
     }
 
-    private fun printTimeLineOf(userName: String) {
+    private fun printPostsOf(userName: String) {
         val now = clock.now()
         postsRepository.usePosts(userName, block = { entries -> entries.forEach { printMessage(it, now) } })
     }
@@ -40,7 +40,7 @@ class SocialNetworkingConsole(private val clock: Clock,
         subscriptionsRepository.subscribe(userName = userName, followedUserName = followedUserName)
     }
 
-    private fun printAggregatedSubscriptions(userName: String) {
+    private fun printAggregatedPostsFromSubscriptions(userName: String) {
         val now = clock.now()
         val subscriptions = subscriptionsRepository.subscriptionsOf(userName)
         val wall = listOf(userName, *subscriptions.toTypedArray())
