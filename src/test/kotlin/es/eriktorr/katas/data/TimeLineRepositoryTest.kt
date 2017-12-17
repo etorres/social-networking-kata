@@ -1,7 +1,10 @@
 package es.eriktorr.katas.data
 
+import com.nhaarman.mockito_kotlin.inOrder
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import es.eriktorr.katas.core.TimeLineEntry
-import org.assertj.core.api.Assertions.assertThat
+import es.eriktorr.katas.core.TimeLinePrinter
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
@@ -27,14 +30,17 @@ class TimeLineRepositoryTest {
         private val TIMESTAMP_3 = LocalDateTime.of(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
     }
 
+    private val timeLinePrinter = mock<TimeLinePrinter>()
+
     private val timeLineRepository = TimeLineRepository()
 
     @Test
     fun `save user post to time-line`() {
         timeLineRepository.save(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1)
 
-        assertThat(timeLineRepository.filterBy(ALICE)).hasSize(1)
-                .containsExactly(TimeLineEntry(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1))
+        timeLineRepository.useEntries(users = *arrayOf(ALICE), block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
+
+        verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_1, userName = ALICE, message = MESSAGE_1).toString())
     }
 
     @Test
@@ -43,11 +49,12 @@ class TimeLineRepositoryTest {
         timeLineRepository.save(TIMESTAMP_2, userName = BOB, message = MESSAGE_2)
         timeLineRepository.save(TIMESTAMP_3, userName = BOB, message = MESSAGE_3)
 
-        assertThat(timeLineRepository.filterBy(BOB)).hasSize(2)
-                .containsExactly(
-                        TimeLineEntry(TIMESTAMP_2, userName = BOB, message = MESSAGE_2),
-                        TimeLineEntry(TIMESTAMP_3, userName = BOB, message = MESSAGE_3)
-                )
+        timeLineRepository.useEntries(users = *arrayOf(BOB), block = { entries -> entries.forEach { timeLinePrinter.print(it.toString()) } })
+
+        inOrder(timeLinePrinter) {
+            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_2, userName = BOB, message = MESSAGE_2).toString())
+            verify(timeLinePrinter).print(TimeLineEntry(TIMESTAMP_3, userName = BOB, message = MESSAGE_3).toString())
+        }
     }
 
 }
